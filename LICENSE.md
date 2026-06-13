@@ -19,4 +19,4 @@ Written Permission Requirement:
 You may only reproduce, use, adapt, or share this work if you have a formal, signed, and notarized (“notariell beglaubigt”) license document from the copyright holder that expressly grants you those rights. Casual emails or online messages are not sufficient.
 
 For permissions, licensing requests, or other inquiries, contact:
-@omg.skyee on Discord
+@unkn0wn.sh4d0w on Discord
