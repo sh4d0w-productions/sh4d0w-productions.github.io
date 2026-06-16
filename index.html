@@ -712,7 +712,7 @@ particlesJS("particles-js",{
 });
 
 const user = "Anonymous";
-const pass = "Guest1234";
+const pass = "Guest";
 let ui = 0, pi = 0;
 
 function typeUser() {
@@ -727,7 +727,7 @@ function typePass() {
     if(pi < pass.length){
         document.getElementById("pass-typing").innerHTML += "*";
         pi++;
-        setTimeout(typePass, 120);
+        setTimeout(typePass, 80);
     } else {
         const btn = document.getElementById("login-btn");
         btn.disabled = false;
@@ -742,10 +742,13 @@ document.getElementById("login-btn").onclick = function() {
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("site").style.display = "block";
 
-    const bgMusic = document.getElementById("music");
-    bgMusic.volume = 0.5;
-    bgMusic.play();
+const bgMusic = document.getElementById("music");
+bgMusic.volume = 0.5;
 
+if (localStorage.getItem("musicMuted") !== "true") {
+    bgMusic.play();
+}
+  
     setTimeout(showAd, 1000);
 }
 const mainPage = document.getElementById("mainPage");
@@ -807,19 +810,23 @@ function showAd() {
   }, 1000);
 }
 
-let musicPlaying = true;
+let musicPlaying = localStorage.getItem("musicMuted") !== "true";
 const bgMusicElement = document.getElementById("music");
 const musicBtn = document.getElementById("musicToggle");
 
-function toggleMusic(){
-    const btn = document.getElementById("musicToggle");
+if (!musicPlaying) {
+    musicBtn.classList.add("muted");
+}
 
-    if(musicPlaying){
-        bgMusic.pause();
-        btn.classList.add("muted");
+function toggleMusic() {
+    if (musicPlaying) {
+        bgMusicElement.pause();
+        musicBtn.classList.add("muted");
+        localStorage.setItem("musicMuted", "true");
     } else {
-        bgMusic.play();
-        btn.classList.remove("muted");
+        bgMusicElement.play();
+        musicBtn.classList.remove("muted");
+        localStorage.setItem("musicMuted", "false");
     }
 
     musicPlaying = !musicPlaying;
