@@ -711,7 +711,7 @@ particlesJS("particles-js",{
   }
 });
 
-const user = "Anonymous";
+const user = "Guest";
 const pass = "Guest";
 let ui = 0, pi = 0;
 
@@ -719,8 +719,8 @@ function typeUser() {
     if(ui < user.length){
         document.getElementById("user-typing").innerHTML += user.charAt(ui);
         ui++;
-        setTimeout(typeUser, 120);
-    } else { setTimeout(typePass, 400); }
+        setTimeout(typeUser, 60);
+    } else { setTimeout(typePass, 200); }
 }
 
 function typePass() {
@@ -749,7 +749,7 @@ if (localStorage.getItem("musicMuted") !== "true") {
     bgMusic.play();
 }
   
-    setTimeout(showAd, 1000);
+    setTimeout(showAd, 2000);
 }
 const mainPage = document.getElementById("mainPage");
 const friendsPage = document.getElementById("friendsPage");
