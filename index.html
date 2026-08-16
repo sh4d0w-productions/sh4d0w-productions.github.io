@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>「criminal ꨄ︎」</title>
@@ -13,6 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://i.imgur.com/HUqM9gN.png">
 <meta name="robots" content="max-image-preview:large">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -24,59 +24,539 @@
   "image": "/banner.png"
 }
 </script>
-</head>
 
 <style>
-html,body{
-height:100%;
-margin:0;
-font-family:Arial,sans-serif;
-background:#0d0d0d;
-color:white;
-overflow-x:hidden;
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Orbitron', Arial, sans-serif;
+  color: white;;
+  overflow-x: hidden;
 }
 
-#particles-js{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:0;
-}
-  
 * {
-    -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+*:focus { outline: none; }
+
+#bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  overflow: hidden;
+  background: #0a0618;
 }
 
-*:focus {
-    outline: none;
-}
-
-.music-btn {
+#bg-galaxy {
   position: absolute;
-  top:20px;
-  left:20px;
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:10px;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  font-size:20px;
-  cursor:pointer;
-  border:1px solid rgba(255,255,255,0.2);
-  backdrop-filter:blur(10px);
-  transition:.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 60% at 15% 25%, rgba(120, 40, 200, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 70% at 85% 70%, rgba(30, 90, 180, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(40, 20, 80, 0.7) 0%, #0a0618 100%);
+  transition: opacity 0.4s ease;
+}
+#bg-galaxy.bg-hidden {
+  opacity: 0 !important;
+  visibility: hidden;
 }
 
-.music-btn .icon {
+#bg-galaxy::before,
+#bg-galaxy::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+  animation: nebulaDrift 16s ease-in-out infinite alternate;
+}
+#bg-galaxy::before {
+  width: 60vmax;
+  height: 60vmax;
+  top: -20%;
+  left: -15%;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 68%);
+}
+#bg-galaxy::after {
+  width: 50vmax;
+  height: 50vmax;
+  bottom: -25%;
+  right: -10%;
+  background: radial-gradient(circle, #2563eb 0%, transparent 68%);
+  animation-delay: -6s;
+  animation-duration: 20s;
+}
+@keyframes nebulaDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5%, 7%) scale(1.1); }
+}
+
+#bg-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 10% 20%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 30% 65%, #e0d4ff, transparent),
+    radial-gradient(1px 1px at 50% 15%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 70% 40%, #c4b5fd, transparent),
+    radial-gradient(1px 1px at 85% 75%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 20% 85%, #a78bfa, transparent),
+    radial-gradient(1px 1px at 55% 55%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 90% 10%, #ddd6fe, transparent),
+    radial-gradient(1px 1px at 40% 90%, #fff, transparent),
+    radial-gradient(1px 1px at 75% 25%, #c4b5fd, transparent);
+  background-size: 100% 100%;
+  opacity: 0;
+  visibility: hidden;
+  animation: none;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  pointer-events: none;
+}
+body.effect-stars #bg-stars {
+  opacity: 0.85;
+  visibility: visible;
+  animation: starsTwinkle 4s ease-in-out infinite alternate;
+}
+@keyframes starsTwinkle {
+  0% { opacity: 0.65; }
+  100% { opacity: 1; }
+}
+
+#particles-js.bg-hidden {
+  opacity: 0 !important;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+#particles-js {
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#bg-gif {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(0.55) contrast(1.2) saturate(1.2);
+  transition: opacity 0.6s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+#bg-gif.active {
+  opacity: 1;
+}
+
+#bg-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.25) 0%,
+    rgba(0,0,0,0.15) 45%,
+    rgba(0,0,0,0.4) 100%
+  );
+  pointer-events: none;
+}
+
+.glitch {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.035) 0px,
+    rgba(255,255,255,0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+body.effect-flicker .glitch,
+body.effect-glitch .glitch,
+body.effect-oldtv .glitch {
+  opacity: 1;
+  visibility: visible;
+}
+body.effect-flicker .glitch {
+  animation: flicker 0.18s infinite;
+}
+body.effect-glitch .glitch {
+  animation: flicker 0.12s infinite;
+  background: repeating-linear-gradient(
+    rgba(255,255,255,0.05) 0px,
+    rgba(255,255,255,0.05) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+body.effect-oldtv .glitch {
+  animation: oldtvFlicker 0.15s infinite;
+  background:
+    repeating-linear-gradient(
+      rgba(255,255,255,0.04) 0px,
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,0.03) 0px,
+      rgba(0,0,0,0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+@keyframes flicker {
+  0% { opacity: 0.8; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+@keyframes oldtvFlicker {
+  0% { opacity: 0.7; }
+  40% { opacity: 0.95; }
+  60% { opacity: 0.55; }
+  100% { opacity: 0.85; }
+}
+
+.rgb {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+body.effect-rgb .rgb,
+body.effect-glitch .rgb,
+body.effect-oldtv .rgb {
+  opacity: 1;
+  visibility: visible;
+}
+body.effect-rgb .rgb {
+  animation: rgbShift 0.2s infinite;
+  background: linear-gradient(90deg, rgba(255,0,0,0.08), transparent 40%, transparent 60%, rgba(0,255,255,0.08));
+}
+body.effect-glitch .rgb {
+  animation: rgbShift 0.15s infinite;
+  background: linear-gradient(90deg, rgba(255,0,80,0.12), transparent 35%, transparent 65%, rgba(0,255,200,0.12));
+}
+body.effect-oldtv .rgb {
+  animation: rgbShift 0.25s infinite;
+  background: linear-gradient(90deg, rgba(255,40,40,0.1), transparent 40%, transparent 60%, rgba(40,200,255,0.1));
+}
+@keyframes rgbShift {
+  0% { transform: translate(0,0); }
+  33% { transform: translate(1.5px,-1.5px); }
+  66% { transform: translate(-1.5px,1.5px); }
+  100% { transform: translate(0,0); }
+}
+
+.fx-oldtv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 55%, rgba(0,0,0,0.55) 100%);
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.45);
+}
+body.effect-oldtv .fx-oldtv-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+#particles-js {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#app-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #050505;
+  transition: opacity .55s ease, visibility .55s ease;
+}
+#app-splash.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.splash-icon {
+  width: 110px;
+  height: 110px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255,0,0,.35), 0 0 50px rgba(255,0,0,.15);
+  animation: splashPulse 1.3s ease-in-out infinite;
+}
+.splash-name {
+  margin-top: 22px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+}
+.splash-loader {
+  width: 150px;
+  height: 3px;
+  margin-top: 22px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255,255,255,.12);
+}
+.splash-loader::after {
+  content: "";
+  display: block;
+  width: 45%;
+  height: 100%;
+  background: #ff3b5c;
+  box-shadow: 0 0 10px #ff3b5c;
+  animation: splashLoad 1.1s ease-in-out infinite;
+}
+@keyframes splashPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+@keyframes splashLoad {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(330%); }
+}
+
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#login-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.terminal {
+  width: 500px;
+  max-width: 90%;
+  background: #0b0b0b;
+  border-radius: 12px;
+  border: 1px solid #333;
+  font-family: monospace;
+  box-shadow: 0 0 50px rgba(0,0,0,0.9);
+  overflow: hidden;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: #111;
+  border-bottom: 1px solid #333;
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+.title {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: .55;
+  font-family: 'Orbitron', monospace;
+}
+.terminal-body {
+  padding: 22px;
+  color: #33ff66;
+  font-size: 14px;
+  line-height: 1.7;
+}
+#login-btn {
+  margin-top: 22px;
+  background: #5865F2;
+  border: none;
+  color: white;
+  padding: 11px 24px;
+  border-radius: 8px;
+  cursor: not-allowed;
+  opacity: .45;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: opacity 0.3s, transform 0.2s;
+}
+#login-btn:not(:disabled) {
+  cursor: pointer;
+  opacity: 1;
+}
+#login-btn:not(:disabled):hover {
+  transform: scale(1.04);
+  background: #4752c4;
+}
+
+#site {
   position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+#site.visible {
+  display: block;
+  opacity: 1;
 }
 
+.container {
+  max-width: 820px;
+  margin: 60px auto 40px;
+  padding: 36px;
+  border-radius: 24px;
+  
+  --glass-blur: 22px;
+  --glass-saturate: 1.4;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 60px rgba(255, 255, 255, 0.04);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, backdrop-filter 0.45s ease;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  pointer-events: none;
+}
+
+.home-card {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+.home-card .pfp {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.85);
+  box-shadow: 0 0 25px rgba(255,255,255,0.45), 0 0 50px rgba(255,255,255,0.15);
+  margin-bottom: 18px;
+  object-fit: cover;
+}
+.home-card h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  letter-spacing: 1px;
+}
+.name-gradient {
+  background: linear-gradient(90deg, #5BCEFA, #F5A9B8, #FFFFFF, #F5A9B8, #5BCEFA);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: nameShine 4s linear infinite;
+}
+@keyframes nameShine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.home-card .handle {
+  margin: 6px 0 18px;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  color: #bbb;
+  font-weight: 500;
+}
+.home-card .bio {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  opacity: 0.9;
+  max-width: 520px;
+  margin: 0 auto 8px;
+  color: #eee;
+}
+
+.page {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+.page.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  display: none;
+}
+.page.fading-out {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+.page.fading-in {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.menu-btn, .music-btn {
+  position: absolute;
+  top: 18px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.menu-btn { right: 18px; }
+.music-btn { left: 18px; }
+.menu-btn:hover, .music-btn:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.18);
+}
 .music-btn.muted::after {
   content: "";
   position: absolute;
@@ -86,612 +566,355 @@ z-index:0;
   transform: rotate(-45deg);
 }
 
-@keyframes goldShine{
-  0%{background-position:0% 50%;}
-  100%{background-position:400% 50%;}
-}
-
-#login-screen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:10;
-}
-
-.install-blue{
-  background-color: white !important;
-  color: black !important;
-  border: 1px solid rgba(0,0,0,0.25) !important;
-  font-weight: 800 !important;
-  text-shadow: 0 0 1px black;
-  }
-
-.install-blue:hover{
-  background-color: #f2f2f2 !important;
-  border-color: black !important;
-}
-
-.terminal{
-width:500px;
-max-width:90%;
-background:#0b0b0b;
-border-radius:10px;
-border:1px solid #333;
-font-family:monospace;
-box-shadow:0 0 40px rgba(0,0,0,0.8);
-overflow:hidden;
-}
-
-.terminal-header{
-display:flex;
-align-items:center;
-padding:10px;
-background:#111;
-border-bottom:1px solid #333;
-}
-
-.dot{
-width:12px;
-height:12px;
-border-radius:50%;
-margin-right:6px;
-}
-
-.red{background:#ff5f56;}
-.yellow{background:#ffbd2e;}
-.green{background:#27c93f;}
-
-.title{
-margin-left:auto;
-font-size:12px;
-opacity:.6;
-}
-
-.terminal-body{
-padding:20px;
-color:#33ff33;
-font-size:14px;
-}
-
-#login-btn{
-margin-top:20px;
-background:#5865F2;
-border:none;
-color:white;
-padding:10px 20px;
-border-radius:6px;
-cursor:not-allowed;
-opacity:.5;
-}
-
-#site{
-position:relative;
-z-index:2;
-}
-
-.container{
-max-width:820px;
-margin:70px auto;
-padding:40px;
-border-radius:18px;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,0.15);
-box-shadow:0 8px 32px rgba(0,0,0,0.4);
-position:relative;
-overflow:hidden;
-}
-
-.rainbow-text {
-  font-weight: bold;
-  background: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    lime,
-    cyan,
-    blue,
-    violet,
-    red
-  );
-  background-size: 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  animation: rainbowMove 4s linear infinite;
-  text-shadow:
-    0 0 5px rgba(255,255,255,0.6),
-    0 0 10px rgba(255,255,255,0.4),
-    0 0 20px rgba(255,255,255,0.2);
-}
-
-@keyframes rainbowMove {
-  0% { background-position: 0%; }
-  100% { background-position: 400%; }
-}
-
-.friends-btn{
-position:absolute;
-top:20px;
-right:20px;
-width:42px;
-height:42px;
-border:none;
-border-radius:10px;
-background:rgba(255,255,255,0.08);
-color:white;
-font-size:20px;
-cursor:pointer;
-border:1px solid rgba(255,255,255,0.2);
-backdrop-filter:blur(10px);
-transition:.2s;
-}
-.friends-btn:hover{
-transform:scale(1.1);
-background:rgba(255,255,255,0.15);
-}
-
-.page {
-  transition: opacity 0.4s ease;
-  opacity: 1;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.header{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:14px;
-}
-
-.avatar{
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: none;
-  padding: 0;
-  box-shadow:
-    0 0 10px rgba(255,255,255,0.6),
-    0 0 20px rgba(255,255,255,0.4),
-    0 0 35px rgba(255,255,255,0.2);
-}
-.avatar img{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  display:block;
-}
-
-.menu-btn{
-position:absolute;
-top:20px;
-right:20px;
-width:42px;
-height:42px;
-border:none;
-border-radius:10px;
-background:rgba(255,255,255,0.08);
-color:white;
-font-size:22px;
-cursor:pointer;
-border:1px solid rgba(255,255,255,0.2);
-backdrop-filter:blur(10px);
-transition:.2s;
-}
-
-.menu-btn:hover{
-transform:scale(1.1);
-background:rgba(255,255,255,0.15);
-}
-
-.divider{
-font-size:42px;
-opacity:.7;
-}
-
-.header h1{
-font-size:46px;
-margin:0;
-}
-
-.center{text-align:center;}
-h2{text-align:center;margin-top:40px;}
-hr{border:none;border-top:1px solid rgba(255,255,255,0.2);margin:30px 0;}
-.badges{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;}
-.links{display:flex;flex-direction:column;align-items:center;gap:16px;}
-.button{
-color:white;
-padding:14px 28px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-transition:.25s;
-}
-.button:hover{transform:translateY(-3px) scale(1.05);}
-.discord{background:#7289DA}
-.profile{background:#5865F2}
-.bot{background:#FFAC33}
-.cmt{background:#008000}
-
-#ad-popup {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.ad-box {
-  background: #111;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  border:1px solid rgba(255,255,255,0.2);
-}
-
-.ad-label {
-  font-size: 14px;
-  opacity:0.7;
-  margin-bottom:10px;
-}
-
-.ad-box img {
-  width:100%;
-  max-width:500px;
-  border-radius:10px;
-  margin-bottom:15px;
-}
-
-.ad-buttons-vertical {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-}
-
-.visit-btn {
-  padding: 8px 16px;
-  background: #00c853;
-  color: white;
-  text-decoration: none;
-  border-radius:6px;
-  font-weight:bold;
-}
-
-#ad-close-btn {
-  padding: 8px 16px;
-  color: white;
+hr {
   border: none;
-  border-radius:6px;
-  cursor: pointer;
-  background: grey;
-  transition: background 0.2s;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin: 28px 0;
 }
-
-#ad-close-btn.enabled {
-  background: #5865F2;
+h2 {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  opacity: 0.95;
 }
-.info-button,
-.info-box {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.info-button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    background: #7b4fa3;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-    margin-top: 20px;
-}
-
-.info-button:hover {
-    transform: scale(1.05);
-    background: #6a3c8d;
-}
-
-.info-box {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    margin-top: 0;
-    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
-    text-align: center;
-    max-width: 600px;
-}
-
-.info-box.show {
-    max-height: 500px;
-    opacity: 1;
-    margin-top: 15px;
-}
-
-.info-box p {
-    line-height: 1.5;
-}
-
-.friends{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 20px;
-}
-.friend{
-display:flex;
-align-items:center;
-gap:12px;
-background:rgba(255,255,255,0.08);
-padding:12px;
-border-radius:10px;
-border:1px solid rgba(255,255,255,0.15);
-}
-.friend img{
-width:48px;
-height:48px;
-border-radius:50%;
-}
-.friend .name{font-weight:bold;}
-.friend .desc{font-size:13px;opacity:.7;}
-
-.back-btn{
-margin-top:25px;
-background:#5865F2;
-border:none;
-padding:10px 20px;
-border-radius:8px;
-color:white;
-cursor:pointer;
-display:block;
-margin-left:auto;
-margin-right:auto;
-}
-
-.ad-buttons {
+.center { text-align: center; }
+.badges {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
-  margin-top: 10px;
-}
-
-.visit-btn {
-  padding: 8px 16px;
-  background: #00c853;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.visit-btn:hover {
-  transform: scale(1.05);
-  background: #00e676;
-}
-
-footer{text-align:center;opacity:.6;margin-top:30px;font-size:14px;}
-
-@media(max-width:700px){
-.container{max-width:90%;padding:25px;margin:40px auto;}
-.header{flex-direction:column;}
-.divider{display:none;}
-.header h1{font-size:34px;}
-.button{width:85%;text-align:center;}
-.friends{grid-template-columns:1fr;}
 }
 .links {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  margin: 20px 0;
+  gap: 14px;
+  margin: 16px 0;
 }
-
+.button {
+  color: white;
+  padding: 13px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.25s;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.3px;
+}
+.button:hover { transform: translateY(-3px) scale(1.04); }
+.discord { background: #5865F2; }
 
 .menu-inside {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.1);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
   border-radius: 10px;
   transition: 0.2s;
   padding: 12px 25px;
-  width: 220px;
+  width: 230px;
   text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  font-size: 0.95rem;
 }
-
 .menu-inside:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.1);
+  background: rgba(255,255,255,0.18);
+  transform: scale(1.06);
+}
+.install-blue {
+  background-color: #fff !important;
+  color: #111 !important;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  font-weight: 800 !important;
+}
+.install-blue:hover {
+  background-color: #f0f0f0 !important;
 }
 
-.hidden {
-  display: none;
+.back-btn {
+  margin-top: 24px;
+  background: #5865F2;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  transition: 0.2s;
 }
+.back-btn:hover { background: #4752c4; transform: scale(1.03); }
 
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 30, 30, 0.8);
+.friends {
   display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+.friend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.08);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(8px);
+}
+.friend img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.friend .name { font-weight: bold; font-size: 0.95rem; }
+.friend .desc { font-size: 13px; opacity: 0.7; }
+
+footer {
+  text-align: center;
+  opacity: 0.55;
+  margin-top: 28px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+#adPage {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0,0,0,0.88);
+  display: none;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  border-radius: 16px;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
-
-.popup-content {
-  background: #2b2b2b;
-  padding: 30px 25px;
+#adPage.visible {
+  display: flex;
+  opacity: 1;
+}
+.ad-box {
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(16px);
+  padding: 24px;
   border-radius: 16px;
-  width: 400px;
-  max-width: 90%;
-  color: #ffffff;
   text-align: center;
-  position: absolute;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  max-width: 90%;
+  width: 420px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.ad-label {
+  font-size: 13px;
+  opacity: 0.65;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+.ad-box img {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+.ad-buttons-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.visit-btn {
+  padding: 10px 20px;
+  background: #00c853;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+  transition: 0.2s;
+}
+.visit-btn:hover {
+  transform: scale(1.05);
+  background: #00e676;
+}
+#ad-close-btn {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #444;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+  min-width: 120px;
+}
+#ad-close-btn.enabled {
+  background: #5865F2;
+  cursor: pointer;
+}
+#ad-close-btn.enabled:hover {
+  background: #4752c4;
+  transform: scale(1.04);
+}
+#close-label {
+  margin: 6px 0 2px;
+  color: white;
+  font-size: 13px;
+  opacity: 0.8;
 }
 
-.close {
+#music-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+#music-popup.visible {
+  display: flex;
+  opacity: 1;
+}
+.music-popup-content {
+  background: rgba(22, 22, 22, 0.92);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  width: 360px;
+  max-width: 92%;
+  padding: 22px 20px 18px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+  position: relative;
+}
+.music-popup-content h3 {
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+.music-popup-close {
   position: absolute;
-  top: 12px;
-  right: 15px;
-  font-size: 24px;
+  top: 10px;
+  right: 14px;
+  font-size: 22px;
   cursor: pointer;
   color: #ff5f56;
-  transition: transform 0.2s;
+  line-height: 1;
+  transition: transform 0.15s;
 }
-.close:hover {
-  transform: scale(1.2);
+.music-popup-close:hover { transform: scale(1.2); }
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
 }
-
-.popup-content input,
-.popup-content textarea {
-  padding: 12px;
+.track-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
   border-radius: 10px;
-  border: none;
-  background: #1e1e1e;
-  color: #ffffff;
-  outline: none;
-  resize: none;
-  width: 100%;
-  max-width: 100%;
-  margin: 10px 0;
-  display: block;
-  text-align: left;
-  box-sizing: border-box;
-}
-
-.popup-content input::placeholder,
-.popup-content textarea::placeholder {
-  color: #aaa;
-}
-
-.popup-content button {
-  padding: 12px 20px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  background: linear-gradient(135deg, #5865F2, #4752c4);
-  color: white;
-  font-weight: bold;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: 0.2s;
+  text-align: left;
 }
-.popup-content button:hover {
-  background: linear-gradient(135deg, #4752c4, #5865F2);
-  transform: scale(1.05);
+.track-item:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+}
+.track-item.active {
+  background: rgba(88,101,242,0.25);
+  border-color: rgba(88,101,242,0.5);
+}
+.track-item .track-emoji {
+  font-size: 22px;
+  width: 28px;
+  text-align: center;
+}
+.track-item .track-info {
+  flex: 1;
+  min-width: 0;
+}
+.track-item .track-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.track-item .track-desc {
+  font-size: 11px;
+  opacity: 0.55;
+  margin-top: 2px;
+}
+.music-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  justify-content: center;
+}
+.music-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.music-actions button:hover {
+  background: rgba(255,255,255,0.15);
+}
+.music-actions button.primary {
+  background: #5865F2;
+  border-color: #5865F2;
+}
+.music-actions button.primary:hover {
+  background: #4752c4;
 }
 
-.demigirl,
-.asexual,
-.biromantic{
-    font-weight:700;
-    display:inline-block;
-    color:transparent;
-    background-clip:text;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.demigirl{
-    background-image:linear-gradient(
-        90deg,
-        #7F7F7F 0%,
-        #7F7F7F 14.28%,
-
-        #C4C4C4 14.28%,
-        #C4C4C4 28.56%,
-
-        #FFFFFF 28.56%,
-        #FFFFFF 42.84%,
-
-        #CBEFA6 42.84%,
-        #CBEFA6 57.12%,
-
-        #FFFFFF 57.12%,
-        #FFFFFF 71.40%,
-
-        #C4C4C4 71.40%,
-        #C4C4C4 85.68%,
-
-        #7F7F7F 85.68%,
-        #7F7F7F 100%
-    );
-}
-
-.asexual{
-    background-image:linear-gradient(
-        90deg,
-        #000000 0%,
-        #000000 25%,
-
-        #A3A3A3 25%,
-        #A3A3A3 50%,
-
-        #FFFFFF 50%,
-        #FFFFFF 75%,
-
-        #800080 75%,
-        #800080 100%
-    );
-}
-
-.biromantic{
-    background-image:linear-gradient(
-        90deg,
-        #8869A5 0%,
-        #8869A5 20%,
-
-        #D8A7D8 20%,
-        #D8A7D8 40%,
-
-        #FFFFFF 40%,
-        #FFFFFF 60%,
-
-        #9AD9A4 60%,
-        #9AD9A4 80%,
-
-        #4A8F5D 80%,
-        #4A8F5D 100%
-    );
+@media (max-width: 700px) {
+  .container { max-width: 92%; padding: 24px 18px; margin: 40px auto; }
+  .home-card h1 { font-size: 1.9rem; }
+  .home-card .pfp { width: 90px; height: 90px; }
+  .button { width: 90%; text-align: center; }
 }
 </style>
 </head>
 <body>
 
+<div id="app-splash">
+  <img class="splash-icon" src="/sh4d0wimg.png?size=1024" alt="App Icon">
+  <div class="splash-name">© Sh4d0w Productions</div>
+  <div class="splash-loader"></div>
+</div>
+
+<div id="bg-layer">
+  <div id="bg-galaxy"></div>
+  <div id="bg-stars"></div>
+  <div id="bg-gif"></div>
+  <div id="bg-dim"></div>
+</div>
+<div class="glitch"></div>
+<div class="rgb"></div>
+<div class="fx-oldtv-overlay"></div>
 <div id="particles-js"></div>
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 
@@ -700,281 +923,258 @@ footer{text-align:center;opacity:.6;margin-top:30px;font-size:14px;}
 </div>
 
 <div id="login-screen">
-<div class="terminal">
-<div class="terminal-header">
-<span class="dot red"></span>
-<span class="dot yellow"></span>
-<span class="dot green"></span>
-<span class="title">Version 2.9</span>
-</div>
-<div class="terminal-body">
-<p>> Connecting...</p>
-<p>> Initializing User Session...</p>
-<p>> Username: <span id="user-typing"></span></p>
-<p>> Password: <span id="pass-typing"></span></p>
-<button id="login-btn" disabled>LOGIN</button>
-</div>
-</div>
-</div>
-
-<div id="site" style="display:none;">
-<div class="container">
-<button class="menu-btn" onclick="openPage('menuPage')">☰</button>
-<div id="mainPage" class="page">
-<div class="header">
-<div class="avatar">
-<img src="/sh4d0wimg.png?size=1024"/>
-</div>
-<span class="divider">|</span>
-<h1 class="rainbow-text">Sh4d0w</h1>
-</div>
-<hr>
-<h2>About Me</h2>
-<p class="center">
-Hi! I'm <b>Sh4d0w</b>, a developer focused on creating bots and automated applications!<br>
-I enjoy building useful tools, improving user experiences, and exploring new technologies with bots.
-<br>
-<br>
-My hobbies include listening to music, drawing, gaming, and exploring the world.
-<br>
-<br>
-My biggest dream is to visit every country in the world at least once, staying for a minimum of 2 days in each place.
-<br>
-<br>
-I'm 17 years old, and my favourite color is pink!<br>
-I also love pastel colors.</p>
-
-<p class="center">
-    My Gender is
-    <span style="
-    font-weight:bold;
-    background:linear-gradient(
-    90deg,
-    #7F7F7F 0%,
-    #C4C4C4 25%,
-    #F5A3C7 37.5%,
-    #FFFFFF 50%,
-    #F5A3C7 62.5%,
-    #C4C4C4 75%,
-    #7F7F7F 100%
-    );
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    color:transparent;
-    ">Demigirl</span>
-    and I'm
-    <span style="
-    font-weight:bold;
-    background:linear-gradient(
-    90deg,
-    #000000 0%,
-    #A4A4A4 33%,
-    #FFFFFF 66%,
-    #800080 100%
-    );
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    color:transparent;
-    ">Asexual</span>
-    and
-    <span style="
-    font-weight:bold;
-    background:linear-gradient(
-    90deg,
-    #D60270 0%,
-    #D60270 25%,
-    #9B4F96 50%,
-    #9B4F96 50%,
-    #0038A8 75%,
-    #0038A8 100%
-    );
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    color:transparent;
-    ">Biromantic</span>.
-</p>
-
-<button id="info-button" class="info-button" onclick="toggleInfo()">Show meanings</button>
-
-<div id="info-text" class="info-box">
-    <p>
-        <strong>
-    <span style="
-    font-weight:bold;
-    background:linear-gradient(
-    90deg,
-    #7F7F7F 0%,
-    #C4C4C4 25%,
-    #F5A3C7 37.5%,
-    #FFFFFF 50%,
-    #F5A3C7 62.5%,
-    #C4C4C4 75%,
-    #7F7F7F 100%
-    );
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    color:transparent;
-    ">Demigirl</span>:</strong>A gender identity where someone feels a partial connection to being female, but does not identify as fully or only female.
-    </p>
-
-    <p>
-        <strong>
-    <span style="
-    font-weight:bold;
-    background:linear-gradient(
-    90deg,
-    #000000 0%,
-    #A4A4A4 33%,
-    #FFFFFF 66%,
-    #800080 100%
-    );
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    color:transparent;
-    ">Asexual</span>:</strong> A sexual orientation where someone experiences little to no
-        sexual attraction to others.
-    </p>
-
-    <p>
-        <strong>
-    <span style="
-    font-weight:bold;
-    background: linear-gradient(
-    90deg,
-    #D60270 0%,
-    #D60270 25%,
-    #9B4F96 50%,
-    #9B4F96 50%,
-    #0038A8 75%,
-    #0038A8 100%
-);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    color:transparent;
-    ">Biromantic</span>:</strong> A romantic orientation where someone can experience
-        romantic attraction to people of two or more genders.
-    </p>
-</div>
-  
-<hr>
-<h2>Developer Badges</h2>
-<div class="badges">
-<img src="https://img.shields.io/badge/HTML-%23E34F26?style=for-the-badge&logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/CSS-%231572B6?style=for-the-badge&logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/JavaScript-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/Python-%2314354C?style=for-the-badge&logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/Go-%2300ADD8?style=for-the-badge&logo=go&logoColor=white">
-<img src="https://img.shields.io/badge/Lua-%23007ACC?style=for-the-badge&logo=lua&logoColor=white">
-</div>
-<hr>
-<h2>My Bots</h2>
-<p class="center">
-<b>omg.bot</b><br>
-Formerly known as <b>cr4zy.bot</b><br>
-Active - Multipurpose Discord Bot with over 1K Commands
-</p>
-<p class="center">
-<b>Utility-Bot#8077</b><br>
-Discontinued since February 2026<br>
-Transferred to omg.bot
-</p>
-<hr>
-<h2>Links</h2>
-<div class="links">
-<a class="button discord" href="https://discord.gg/HQpNG7Cy4Q" target="_blank">Join My Discord Server</a>
-<!-- <a class="button profile" href="https://discord.com/users/" target="_blank">My Discord Profile</a> -->
-<!-- <a class="button bot" href="https://discord.com/users/1477661871338291391" target="_blank">My Bot Profile</a> -->
-</div>
-<footer>© 2026 Sh4dow</footer>
-</div>
-
-<div id="friendsPage" class="page hidden">
-<h2>💬 Comments</h2>
-<div class="friends">
-
-<div class="friend" style="background:linear-gradient(135deg,#8c6a00 0%,#c99a00 25%,#ffd700 50%,#c99a00 75%,#8c6a00 100%);box-shadow:0 0 10px rgba(255,215,0,.3);border:1px solid rgba(255,235,150,.35);text-shadow:0 1px 3px rgba(0,0,0,.8);">
-<img src="/sh4d0wimg.png?size=1024">
-<div>
-<div class="name">@unkn0wn.sh4d0w (Creator)</div>
-<div class="desc">Comment Submissions can be done through Discord: @.gh0stnet.</div>
-</div>
-  (Pinned)
-</div>
-
-<div class="friend" style="background:linear-gradient(135deg,#3b0000,#5a0000,#7a001a,#4a0010);box-shadow:0 0 15px rgba(122,0,26,.5);">
-<img src="?size=1024">
-<div>
-<div class="name">@CHRiiS</div>
-<div class="desc">""</div>
-</div>
-</div>
-
-</div>
-<button class="back-btn" onclick="showMenu()">Back</button>
-</div>
-
-<button id="musicToggle" class="music-btn" onclick="toggleMusic()">
-  <span class="icon">🎵</span>
-</button>
-
-<div id="menuPage" class="page hidden">
-  <h2>Menu</h2>
-  <div class="links">
-    <button class="menu-inside" onclick="showFriends()">💬 Comments</button>
-    <button class="menu-inside" onclick="openGames()">🎮 Games</button>
-    <button class="menu-inside" onclick="openMinus()">🖌️ Custom Profiles</button>
-    <button id="installBtn" class="menu-inside install-blue">
-  📲 Install this site as an App
-</button>
-
-  </div>
-  <button class="back-btn" onclick="showMain()">Back</button>
-</div>
-
-<div id="ad-popup">
-  <div class="ad-box">
-    <p class="ad-label">Sponsored Advertisement</p>
-
-    <img src="/tiktokads.png">
-
-    <div class="ad-buttons-vertical">
-      <a href="https://tiktok.com/users/@sh4d0w.txt" target="_blank" class="visit-btn">
-        Visit Sponsor
-      </a>
-
-      <p id="close-label" style="margin:8px 0 4px; color:white; font-size:14px; opacity:0.8;">Wait 5s</p>
-
-      <button id="ad-close-btn" onclick="closeAd()" disabled>
-        Close
-      </button>
+  <div class="terminal">
+    <div class="terminal-header">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="title">Version 2.9</span>
+    </div>
+    <div class="terminal-body">
+      <p>> Connecting...</p>
+      <p>> Initializing User Session...</p>
+      <p>> Username: <span id="user-typing"></span></p>
+      <p>> Password: <span id="pass-typing"></span></p>
+      <button id="login-btn" disabled>LOGIN</button>
     </div>
   </div>
 </div>
 
-<audio id="music" loop>
-<source src="https://stream.laut.fm/double-bass-fm" type="audio/mpeg">
-</audio>
+<div id="site">
+  <div class="container">
+    <button class="menu-btn" onclick="openPage('menuPage')" title="Menu">☰</button>
+    <button id="musicToggle" class="music-btn" onclick="openMusicPopup()" title="Music">
+      <span class="icon">🎵</span>
+    </button>
+
+    <div id="mainPage" class="page">
+      <div class="home-card">
+        <img class="pfp" src="/sh4d0wimg.png?size=1024" alt="Sh4d0w">
+        <h1><span class="name-gradient">E K S I</span></h1>
+        <div class="handle">@unkn0wn_sh4d0w</div>
+        <p class="bio">
+          Im the Owner of Sh4d0w Productions!
+          <br><br>
+          Male • 20yrs
+          <br>
+          DM me on Snapchat or Discord for inquiries
+        </p>
+      </div>
+
+      <hr>
+      <h2>Developer Badges</h2>
+      <div class="badges">
+        <img src="https://img.shields.io/badge/HTML-%23E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML">
+        <img src="https://img.shields.io/badge/CSS-%231572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS">
+        <img src="https://img.shields.io/badge/JavaScript-%23F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JS">
+        <img src="https://img.shields.io/badge/Python-%2314354C?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+        <img src="https://img.shields.io/badge/Go-%2300ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go">
+        <img src="https://img.shields.io/badge/Lua-%23007ACC?style=for-the-badge&logo=lua&logoColor=white" alt="Lua">
+      </div>
+
+      <hr>
+      <h2>My Discord Bots</h2>
+      <p class="center" style="opacity:0.9;line-height:1.6;">
+        <b>omg.bot</b><br>
+        Formerly known as <b>cr4zy.bot</b><br>
+        Active — Multipurpose Discord Bot with over 1K Commands
+      </p>
+      <p class="center" style="opacity:0.75;line-height:1.6;margin-top:14px;">
+        <b>Utility-Bot#8077</b><br>
+        Discontinued since February 2026<br>
+        Transferred to omg.bot
+      </p>
+
+      <hr>
+      <h2>Links</h2>
+      <div class="links">
+        <a class="button" style="background-color: blue" href="https://discord.gg/HQpNG7Cy4Q" target="_blank">Join My Discord Server</a>
+      </div>
+      <footer>© 2026 Sh4d0w</footer>
+    </div>
+
+    <div id="friendsPage" class="page hidden">
+      <h2>💬 Comments</h2>
+      <div class="friends">
+        
+        <div class="friend" style="background:linear-gradient(135deg,#8c6a00 0%,#c99a00 25%,#ffd700 50%,#c99a00 75%,#8c6a00 100%);box-shadow:0 0 10px rgba(255,215,0,.3);border:1px solid rgba(255,235,150,.35);text-shadow:0 1px 3px rgba(0,0,0,.8);">
+          <img src="/sh4d0wimg.png?size=1024" alt="">
+          <div>
+            <div class="name">E K S I</div>
+            <div class="desc">Comment Submissions can be done through Socials</div>
+          </div>
+          <span style="margin-left:auto;font-size:11px;opacity:0.9;">   </span>
+        </div>
+        
+      </div>
+      <button class="back-btn" onclick="showMenu()">Back</button>
+    </div>
+
+    <div id="menuPage" class="page hidden">
+      <h2>Menu</h2>
+      <div class="links">
+        <button class="menu-inside" onclick="showFriends()">💬 Comments</button>
+        <button class="menu-inside" onclick="openGames()">🎮 Games</button>
+        <button class="menu-inside" onclick="openMinus()">🖌️ Custom Profiles</button>
+        <button id="installBtn" class="menu-inside install-blue">📲 Install this site as an App</button>
+      </div>
+      <button class="back-btn" onclick="showMain()">Back</button>
+    </div>
+  </div>
+</div>
+
+<div id="adPage">
+  <div class="ad-box">
+    <p class="ad-label">Sponsored Advertisement</p>
+    <img src="/tiktokads.png" alt="Ad">
+    <div class="ad-buttons-vertical">
+      <a href="https://tiktok.com/users/@sh4d0w.txt" target="_blank" class="visit-btn">Visit Sponsor</a>
+      <p id="close-label">Wait 3s</p>
+      <button id="ad-close-btn" onclick="closeAd()" disabled>Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="music-popup">
+  <div class="music-popup-content">
+    <span class="music-popup-close" onclick="closeMusicPopup()">×</span>
+    <h3>🎵 Choose Track</h3>
+    <div class="track-list" id="trackList"></div>
+    <div class="music-actions">
+      <button type="button" onclick="toggleMute()">Mute / Unmute</button>
+      <button type="button" class="primary" onclick="closeMusicPopup()">Done</button>
+    </div>
+  </div>
+</div>
+
+<audio id="music" loop preload="auto"></audio>
 
 <script>
-particlesJS("particles-js",{
-  particles:{
-    number:{value:60},
-    size:{value:3},
-    color:{value:"#ffffff"},
-    line_linked:{
-      enable:true,
-      distance:150,
-      color:"#ffffff",
-      opacity:.25
+  /* gif:
+     - "URL"     → Gif only
+     - "Galaxy"  → particles, colored, no gif
+     - ""        → no gif, no colors, particles
+
+   effect: (optional)
+     - ""          → clean / normal
+     - "flicker"   → soft scanline flicker
+     - "glitch"    → heavy scanlines + RGB shift
+     - "rgb"       → RGB chromatic shift only
+     - "oldtv"     → CRT (scanlines + rgb + vignette)
+     - "stars"     → twinkling star field
+     
+
+   glass: (optional)
+     blur, saturate, bg, border, shadow */
+  
+  
+const TRACKS = [
+  {
+    id: "bass",
+    name: "Double Bass FM (RADIO)",
+    desc: "Always the best Hits of the World",
+    emoji: "🎷",
+    src: "https://stream.laut.fm/double-bass-fm",
+    gif: "https://img1.picmix.com/output/pic/normal/3/5/2/4/11644253_d249e.gif",
+    effect: "",
+    glass: {
+      blur: "18px",
+      saturate: 1.3,
+      bg: "rgba(255, 255, 255, 0.07)",
+      border: "rgba(255, 255, 255, 0.2)"
+    }
+  },
+
+  {
+    id: "featured",
+    name: "P.I.M.P",
+    desc: "by 50 Cent",
+    emoji: "",
+    src: "/mainpage/50cent.mp3",
+    gif: "/mainpage/50cent.gif",
+    effect: "",
+    glass: {
+      blur: "18px",
+      saturate: 1.3,
+      bg: "rgba(255, 255, 255, 0.07)",
+      border: "rgba(255, 255, 255, 0.2)"
+    }
+  },
+  
+  {
+    id: "lofi",
+    name: "Lofi Beats (RADIO)",
+    desc: "",
+    emoji: "🎧",
+    src: "https://stream.laut.fm/lofi",
+    gif: "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif",
+    effect: "",
+    glass: {
+      blur: "0px",
+      saturate: 1,
+      bg: "rgba(20, 20, 28, 0.72)",
+      border: "rgba(255, 255, 255, 0.12)"
+    }
+  },
+  {
+    id: "synth",
+    name: "Synthwave (RADIO)",
+    desc: "",
+    emoji: "🌆",
+    src: "https://stream.laut.fm/synthwave",
+    gif: "https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif",
+    effect: "oldtv",
+    glass: {
+      blur: "14px",
+      saturate: 1.6,
+      bg: "rgba(255, 40, 120, 0.08)",
+      border: "rgba(255, 100, 180, 0.25)"
+    }
+  },
+  {
+    id: "ambient",
+    name: "Ambient Space (RADIO)",
+    desc: "",
+    emoji: "🌌",
+    src: "https://stream.laut.fm/ambient",
+    gif: "Galaxy",
+    effect: ["stars", "flicker"],
+    glass: {
+      blur: "28px",
+      saturate: 1.5,
+      bg: "rgba(255, 255, 255, 0.05)",
+      border: "rgba(180, 160, 255, 0.28)"
+    }
+  }
+];
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const splash = document.getElementById("app-splash");
+    splash.classList.add("hide");
+    setTimeout(() => {
+      typeUser();
+    }, 600);
+  }, 1600);
+});
+
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 70 },
+    size: { value: 2.2 },
+    color: { value: "#c4b5fd" },
+    line_linked: {
+      enable: true,
+      distance: 130,
+      color: "#a78bfa",
+      opacity: 0.22
     },
-    move:{speed:.7},
-    opacity:{value:.6}
+    move: { speed: 0.45 },
+    opacity: { value: 0.55 }
+  },
+  interactivity: {
+    detect_on: "canvas",
+    events: { onhover: { enable: false }, onclick: { enable: false } }
   }
 });
 
@@ -983,85 +1183,108 @@ const pass = "Guest";
 let ui = 0, pi = 0;
 
 function typeUser() {
-    if(ui < user.length){
-        document.getElementById("user-typing").innerHTML += user.charAt(ui);
-        ui++;
-        setTimeout(typeUser, 60);
-    } else { setTimeout(typePass, 200); }
+  if (ui < user.length) {
+    document.getElementById("user-typing").innerHTML += user.charAt(ui);
+    ui++;
+    setTimeout(typeUser, 120);
+  } else {
+    setTimeout(typePass, 400);
+  }
 }
 
 function typePass() {
-    if(pi < pass.length){
-        document.getElementById("pass-typing").innerHTML += "*";
-        pi++;
-        setTimeout(typePass, 80);
-    } else {
-        const btn = document.getElementById("login-btn");
-        btn.disabled = false;
-        btn.style.cursor = "pointer";
-        btn.style.opacity = "1";
-    }
+  if (pi < pass.length) {
+    document.getElementById("pass-typing").innerHTML += "*";
+    pi++;
+    setTimeout(typePass, 100);
+  } else {
+    const btn = document.getElementById("login-btn");
+    btn.disabled = false;
+    btn.style.cursor = "pointer";
+    btn.style.opacity = "1";
+  }
 }
 
-setTimeout(typeUser, 1200);
+document.getElementById("login-btn").onclick = function () {
+  if (this.disabled) return;
+  const login = document.getElementById("login-screen");
+  login.classList.add("fade-out");
+  setTimeout(() => {
+    login.style.display = "none";
+    const site = document.getElementById("site");
+    site.style.display = "block";
+    requestAnimationFrame(() => {
+      site.classList.add("visible");
+    });
+    initMusic();
+    setTimeout(showAd, 1800);
+  }, 500);
+};
 
-document.getElementById("login-btn").onclick = function() {
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("site").style.display = "block";
-
-const bgMusic = document.getElementById("music");
-bgMusic.volume = 0.5;
-
-if (localStorage.getItem("musicMuted") !== "true") {
-    bgMusic.play();
-}
-  
-    setTimeout(showAd, 2000);
-}
 const mainPage = document.getElementById("mainPage");
 const friendsPage = document.getElementById("friendsPage");
 const menuPage = document.getElementById("menuPage");
+const allPages = [mainPage, friendsPage, menuPage];
+
+function switchPage(target) {
+  const current = allPages.find(p => !p.classList.contains("hidden"));
+  if (current === target) return;
+  if (current) {
+    current.classList.add("fading-out");
+    setTimeout(() => {
+      current.classList.add("hidden");
+      current.classList.remove("fading-out");
+      target.classList.remove("hidden");
+      target.classList.add("fading-in");
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          target.classList.remove("fading-in");
+        });
+      });
+    }, 380);
+  } else {
+    target.classList.remove("hidden");
+  }
+}
 
 function hideAllPages() {
-    [mainPage,friendsPage,menuPage].forEach(p=>p.classList.add("hidden"));
+  allPages.forEach(p => {
+    p.classList.add("hidden");
+    p.classList.remove("fading-out", "fading-in");
+  });
 }
 function showMain() {
-    hideAllPages();
-    mainPage.classList.remove("hidden");
+  switchPage(mainPage);
 }
-function showFriends() { hideAllPages(); friendsPage.classList.remove("hidden"); }
-function openPage(id) { hideAllPages(); document.getElementById(id).classList.remove("hidden"); }
-function showMenu() { hideAllPages(); menuPage.classList.remove("hidden"); }
-
-const mySong = document.getElementById("mySong");
-const bgMusic = document.getElementById("music");
-
-function playSong() { mySong.play(); bgMusic.pause(); }
-function pauseSong() { mySong.pause(); }
-function stopSong() { mySong.pause(); mySong.currentTime = 0; }
-
-function openProfile() {
-    window.open("https://discord.com/users/1420110702516899910");
+function showFriends() {
+  switchPage(friendsPage);
 }
-
+function openPage(id) {
+  switchPage(document.getElementById(id));
+}
+function showMenu() {
+  switchPage(menuPage);
+}
 function openMinus() {
-    window.open("/user/", "_blank");
+  window.open("/user/", "_blank");
 }
-
 function openGames() {
-    window.open("/games/", "_blank");
+  window.open("/games/", "_blank");
 }
 
 function showAd() {
-  const popup = document.getElementById("ad-popup");
+  const page = document.getElementById("adPage");
   const btn = document.getElementById("ad-close-btn");
   const label = document.getElementById("close-label");
 
-  popup.style.display = "flex";
-  let countdown = 3;
+  page.style.display = "flex";
+  requestAnimationFrame(() => {
+    page.classList.add("visible");
+  });
   btn.disabled = true;
   btn.classList.remove("enabled");
   label.style.display = "block";
+  let countdown = 3;
   label.innerText = `Wait ${countdown}s`;
 
   const interval = setInterval(() => {
@@ -1077,64 +1300,223 @@ function showAd() {
   }, 1000);
 }
 
-let musicPlaying = localStorage.getItem("musicMuted") !== "true";
-const bgMusicElement = document.getElementById("music");
-const musicBtn = document.getElementById("musicToggle");
-
-if (!musicPlaying) {
-    musicBtn.classList.add("muted");
-}
-
-function toggleMusic() {
-    if (musicPlaying) {
-        bgMusicElement.pause();
-        musicBtn.classList.add("muted");
-        localStorage.setItem("musicMuted", "true");
-    } else {
-        bgMusicElement.play();
-        musicBtn.classList.remove("muted");
-        localStorage.setItem("musicMuted", "false");
-    }
-
-    musicPlaying = !musicPlaying;
-}
-
 function closeAd() {
   const btn = document.getElementById("ad-close-btn");
   if (btn.disabled) return;
-
-  document.getElementById("ad-popup").style.display = "none";
+  const page = document.getElementById("adPage");
+  page.classList.remove("visible");
+  setTimeout(() => {
+    page.style.display = "none";
+  }, 400);
 }
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(() => console.log('Service Worker registered'));
+const musicEl = document.getElementById("music");
+const bgGif = document.getElementById("bg-gif");
+const bgGalaxy = document.getElementById("bg-galaxy");
+const bgStars = document.getElementById("bg-stars");
+const bgParticles = document.getElementById("particles-js");
+const musicBtn = document.getElementById("musicToggle");
+
+let currentTrackId = localStorage.getItem("selectedTrack") || TRACKS[0].id;
+let musicPlaying = localStorage.getItem("musicMuted") !== "true";
+
+function getTrack(id) {
+  return TRACKS.find(t => t.id === id) || TRACKS[0];
 }
 
+function applyBackground(gifUrl) {
+  const val = String(gifUrl || "").trim();
+
+  bgGif.classList.remove("active");
+  bgGif.style.backgroundImage = "none";
+
+  function showGalaxyParticles(showGalaxy, showParticles) {
+    if (showGalaxy) bgGalaxy.classList.remove("bg-hidden");
+    else bgGalaxy.classList.add("bg-hidden");
+
+    if (bgParticles) {
+      if (showParticles) bgParticles.classList.remove("bg-hidden");
+      else bgParticles.classList.add("bg-hidden");
+    }
+  }
+
+  if (val === "Galaxy") {
+    showGalaxyParticles(true, true);
+    return;
+  }
+
+  if (!val) {
+    showGalaxyParticles(false, true);
+    return;
+  }
+
+  showGalaxyParticles(false, false);
+
+  const probe = new Image();
+  probe.onload = () => {
+    showGalaxyParticles(false, false);
+    bgGif.style.backgroundImage = `url("${val}")`;
+    bgGif.classList.add("active");
+  };
+  probe.onerror = () => {
+    console.warn("GIF: 404", val);
+    showGalaxyParticles(false, true);
+    bgGif.classList.remove("active");
+    bgGif.style.backgroundImage = "none";
+  };
+  probe.src = val;
+}
+
+const EFFECT_CLASSES = ["effect-flicker", "effect-glitch", "effect-rgb", "effect-oldtv", "effect-stars"];
+
+function applyEffects(effect) {
+  EFFECT_CLASSES.forEach(c => document.body.classList.remove(c));
+
+  let list = [];
+  if (Array.isArray(effect)) {
+    list = effect.map(e => String(e || "").trim().toLowerCase()).filter(Boolean);
+  } else {
+    const raw = String(effect || "").trim().toLowerCase();
+    if (raw) list = [raw];
+  }
+
+  list.forEach(e => {
+    if (EFFECT_CLASSES.includes("effect-" + e)) {
+      document.body.classList.add("effect-" + e);
+    }
+  });
+}
+
+function applyGlass(glass) {
+  const el = document.querySelector(".container");
+  if (!el) return;
+
+  const g = glass && typeof glass === "object" ? glass : {};
+
+  const blur = g.blur != null ? String(g.blur) : "22px";
+  const saturate = g.saturate != null ? String(g.saturate) : "1.4";
+  const bg = g.bg != null ? String(g.bg) : "rgba(255, 255, 255, 0.06)";
+  const border = g.border != null ? String(g.border) : "rgba(255, 255, 255, 0.22)";
+  const shadow = g.shadow != null
+    ? String(g.shadow)
+    : "0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 60px rgba(255, 255, 255, 0.04)";
+
+  el.style.setProperty("--glass-blur", blur);
+  el.style.setProperty("--glass-saturate", saturate);
+  el.style.setProperty("--glass-bg", bg);
+  el.style.setProperty("--glass-border", border);
+  el.style.setProperty("--glass-shadow", shadow);
+}
+
+function applyTrackVisuals(track) {
+  applyBackground(track.gif);
+  applyEffects(track.effect);
+  applyGlass(track.glass);
+}
+
+function selectTrack(id, play = true) {
+  const track = getTrack(id);
+  currentTrackId = track.id;
+  localStorage.setItem("selectedTrack", track.id);
+
+  musicEl.src = track.src;
+  applyTrackVisuals(track);
+
+  if (play && musicPlaying) {
+    musicEl.volume = 0.5;
+    musicEl.play().catch(() => {});
+  }
+
+  renderTrackList();
+  updateMusicBtn();
+}
+
+function initMusic() {
+  const track = getTrack(currentTrackId);
+  musicEl.src = track.src;
+  applyTrackVisuals(track);
+  musicEl.volume = 0.5;
+  if (musicPlaying) {
+    musicEl.play().catch(() => {});
+  } else {
+    musicBtn.classList.add("muted");
+  }
+  renderTrackList();
+}
+
+function toggleMute() {
+  if (musicPlaying) {
+    musicEl.pause();
+    musicBtn.classList.add("muted");
+    localStorage.setItem("musicMuted", "true");
+  } else {
+    musicEl.play().catch(() => {});
+    musicBtn.classList.remove("muted");
+    localStorage.setItem("musicMuted", "false");
+  }
+  musicPlaying = !musicPlaying;
+  updateMusicBtn();
+}
+
+function updateMusicBtn() {
+  if (!musicPlaying) musicBtn.classList.add("muted");
+  else musicBtn.classList.remove("muted");
+}
+
+function openMusicPopup() {
+  const popup = document.getElementById("music-popup");
+  popup.style.display = "flex";
+  requestAnimationFrame(() => {
+    popup.classList.add("visible");
+  });
+  renderTrackList();
+}
+function closeMusicPopup() {
+  const popup = document.getElementById("music-popup");
+  popup.classList.remove("visible");
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 350);
+}
+
+function renderTrackList() {
+  const list = document.getElementById("trackList");
+  list.innerHTML = TRACKS.map(t => {
+    const hasBg = t.gif && String(t.gif).trim() !== "";
+    let fx = "";
+    if (Array.isArray(t.effect)) {
+      fx = t.effect.filter(Boolean).join("+");
+    } else {
+      fx = String(t.effect || "").trim();
+    }
+    const extras = [
+      !hasBg ? "No Background" : null,
+      fx ? "FX: " + fx : "Normal"
+    ].filter(Boolean).join(" · ");
+    return `
+    <div class="track-item ${t.id === currentTrackId ? "active" : ""}" onclick="selectTrack('${t.id}')">
+      <span class="track-emoji">${t.emoji}</span>
+      <div class="track-info">
+        <div class="track-name">${t.name}</div>
+        <div class="track-desc">${t.desc}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js").then(() => console.log("Service Worker registered"));
+}
 let deferredPrompt;
-
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
 });
-
 document.getElementById("installBtn").onclick = async () => {
   if (!deferredPrompt) return;
-
   deferredPrompt.prompt();
   deferredPrompt = null;
 };
-
-function toggleInfo() {
-    const info = document.getElementById("info-text");
-    const button = document.getElementById("info-button");
-
-    info.classList.toggle("show");
-
-    if (info.classList.contains("show")) {
-        button.textContent = "Hide meanings";
-    } else {
-        button.textContent = "Show meanings";
-    }
-}
 </script>
+</body>
+</html>
