@@ -30,8 +30,9 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Orbitron', Arial, sans-serif;
-  color: white;;
+  color: white;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 * {
@@ -430,10 +431,10 @@ body.effect-oldtv .fx-oldtv-overlay {
 }
 
 .container {
-  max-width: 820px;
-  margin: 60px auto 40px;
-  padding: 36px;
-  border-radius: 24px;
+  max-width: min(820px, 94vw);
+  margin: clamp(24px, 6vh, 60px) auto clamp(20px, 4vh, 40px);
+  padding: clamp(18px, 4vw, 36px);
+  border-radius: clamp(16px, 3vw, 24px);
   
   --glass-blur: 22px;
   --glass-saturate: 1.4;
@@ -478,11 +479,11 @@ body.effect-oldtv .fx-oldtv-overlay {
 }
 .home-card h1 {
   margin: 0;
-  font-size: 2.4rem;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
   letter-spacing: 1px;
 }
 .name-gradient {
-  background: linear-gradient(90deg, #5BCEFA, #F5A9B8, #FFFFFF, #F5A9B8, #5BCEFA);
+  background: linear-gradient(90deg, black, red, black, black);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -562,7 +563,7 @@ body.effect-oldtv .fx-oldtv-overlay {
   position: absolute;
   width: 28px;
   height: 2px;
-  background: white;
+  background: red;
   transform: rotate(-45deg);
 }
 
@@ -774,103 +775,175 @@ footer {
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.82);
   display: none;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transition: opacity 0.35s ease;
+  padding: 16px;
+  box-sizing: border-box;
 }
 #music-popup.visible {
   display: flex;
   opacity: 1;
 }
 .music-popup-content {
-  background: rgba(22, 22, 22, 0.92);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.15);
-  width: 360px;
-  max-width: 92%;
-  padding: 22px 20px 18px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+  background: rgba(18, 18, 22, 0.94);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.14);
+  width: min(380px, 100%);
+  max-width: 100%;
+  padding: 20px 16px 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.75);
   position: relative;
-}
-.music-popup-content h3 {
-  margin: 0 0 14px;
-  text-align: center;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-}
-.music-popup-close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  font-size: 22px;
-  cursor: pointer;
-  color: #ff5f56;
-  line-height: 1;
-  transition: transform 0.15s;
-}
-.music-popup-close:hover { transform: scale(1.2); }
-.track-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-height: 280px;
-  overflow-y: auto;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
 }
-.track-item {
+.music-popup-content h3 {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  letter-spacing: 0.5px;
+  width: 100%;
+}
+.music-carousel {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.carousel-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+.carousel-viewport:active {
+  cursor: grabbing;
+}
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
+}
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #111;
+}
+.carousel-slide .slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.carousel-slide .slide-fallback {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid transparent;
+  justify-content: center;
+  font-size: 64px;
+  background: linear-gradient(145deg, #1a1030 0%, #0d1a3a 50%, #1a1030 100%);
+}
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-size: 20px;
   cursor: pointer;
-  transition: 0.2s;
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: background 0.2s, transform 0.2s, opacity 0.2s;
+  opacity: 0.85;
 }
-.track-item:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.15);
+.carousel-nav:hover {
+  background: rgba(88,101,242,0.7);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
 }
-.track-item.active {
-  background: rgba(88,101,242,0.25);
-  border-color: rgba(88,101,242,0.5);
-}
-.track-item .track-emoji {
-  font-size: 22px;
-  width: 28px;
+.carousel-nav.prev { left: 6px; }
+.carousel-nav.next { right: 6px; }
+.carousel-info {
   text-align: center;
+  width: 100%;
+  padding: 0 8px;
+  min-height: 52px;
 }
-.track-item .track-info {
-  flex: 1;
-  min-width: 0;
-}
-.track-item .track-name {
-  font-weight: 600;
-  font-size: 0.9rem;
+.carousel-info .track-name {
+  font-weight: 700;
+  font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+  letter-spacing: 0.3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.track-item .track-desc {
-  font-size: 11px;
+.carousel-info .track-desc {
+  font-size: 12px;
   opacity: 0.55;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
   margin-top: 2px;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.carousel-dot.active {
+  background: #5865F2;
+  transform: scale(1.25);
 }
 .music-actions {
   display: flex;
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 16px;
   justify-content: center;
+  width: 100%;
 }
 .music-actions button {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 11px 12px;
+  border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.08);
   color: white;
@@ -889,12 +962,61 @@ footer {
 .music-actions button.primary:hover {
   background: #4752c4;
 }
+.music-actions button.muted {
+  background: rgba(255, 59, 92, 0.25);
+  border-color: rgba(255, 59, 92, 0.45);
+  color: #ffb3c1;
+}
+.music-actions button.muted:hover {
+  background: rgba(255, 59, 92, 0.35);
+}
 
 @media (max-width: 700px) {
-  .container { max-width: 92%; padding: 24px 18px; margin: 40px auto; }
-  .home-card h1 { font-size: 1.9rem; }
-  .home-card .pfp { width: 90px; height: 90px; }
-  .button { width: 90%; text-align: center; }
+  .container {
+    max-width: 94%;
+    padding: 22px 14px;
+    margin: 28px auto 24px;
+    border-radius: 18px;
+  }
+  .home-card h1 { font-size: clamp(1.5rem, 7vw, 1.9rem); }
+  .home-card .pfp { width: 84px; height: 84px; }
+  .home-card .bio { font-size: 0.85rem; }
+  .button { width: 100%; max-width: 280px; text-align: center; }
+  .menu-btn, .music-btn {
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    font-size: 18px;
+  }
+  .menu-btn { right: 12px; }
+  .music-btn { left: 12px; }
+  .menu-inside { width: 100%; max-width: 240px; }
+  .badges img { max-height: 26px; }
+  .carousel-viewport { max-width: 240px; }
+  .carousel-nav { width: 36px; height: 36px; font-size: 18px; }
+  .music-popup-content { padding: 16px 12px 14px; border-radius: 16px; }
+  .terminal { width: 92%; }
+  .terminal-body { padding: 16px; font-size: 13px; }
+}
+@media (max-width: 400px) {
+  .container { padding: 18px 12px; margin: 20px auto; }
+  .home-card .pfp { width: 76px; height: 76px; }
+  .carousel-viewport { max-width: 200px; }
+  .splash-icon { width: 90px; height: 90px; }
+  .splash-name { font-size: 18px; }
+}
+@media (min-width: 900px) {
+  .container {
+    max-width: 860px;
+    padding: 40px 42px;
+  }
+  .home-card h1 { font-size: 2.6rem; }
+  .home-card .pfp { width: 120px; height: 120px; }
+  .carousel-viewport { max-width: 300px; }
+  .music-popup-content { width: min(400px, 100%); }
+}
+@media (min-width: 1200px) {
+  .container { max-width: 900px; }
 }
 </style>
 </head>
@@ -1025,7 +1147,7 @@ footer {
 
 <div id="adPage">
   <div class="ad-box">
-    <p class="ad-label">Sponsored Advertisement</p>
+    <p class="ad-label"><b>Sponsored Advertisement</b><br>Message me on Socials to get your Ads here!</p>
     <img src="/tiktokads.png" alt="Ad">
     <div class="ad-buttons-vertical">
       <a href="https://tiktok.com/users/@sh4d0w.txt" target="_blank" class="visit-btn">Visit Sponsor</a>
@@ -1037,11 +1159,21 @@ footer {
 
 <div id="music-popup">
   <div class="music-popup-content">
-    <span class="music-popup-close" onclick="closeMusicPopup()">×</span>
     <h3>🎵 Choose Track</h3>
-    <div class="track-list" id="trackList"></div>
+    <div class="music-carousel">
+      <div class="carousel-viewport" id="carouselViewport">
+        <div class="carousel-track" id="carouselTrack"></div>
+        <button type="button" class="carousel-nav prev" id="carouselPrev" aria-label="Previous">‹</button>
+        <button type="button" class="carousel-nav next" id="carouselNext" aria-label="Next">›</button>
+      </div>
+      <div class="carousel-info">
+        <div class="track-name" id="carouselTrackName"></div>
+        <div class="track-desc" id="carouselTrackDesc"></div>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
     <div class="music-actions">
-      <button type="button" onclick="toggleMute()">Mute / Unmute</button>
+      <button type="button" id="muteBtn" onclick="toggleMute()">Mute</button>
       <button type="button" class="primary" onclick="closeMusicPopup()">Done</button>
     </div>
   </div>
@@ -1414,10 +1546,25 @@ function applyTrackVisuals(track) {
   applyGlass(track.glass);
 }
 
+let carouselIndex = 0;
+let carouselBuilt = false;
+
+function getTrackIndex(id) {
+  const i = TRACKS.findIndex(t => t.id === id);
+  return i >= 0 ? i : 0;
+}
+
+function isImageGif(gif) {
+  const val = String(gif || "").trim();
+  if (!val || val === "Galaxy") return false;
+  return true;
+}
+
 function selectTrack(id, play = true) {
   const track = getTrack(id);
   currentTrackId = track.id;
   localStorage.setItem("selectedTrack", track.id);
+  carouselIndex = getTrackIndex(track.id);
 
   musicEl.src = track.src;
   applyTrackVisuals(track);
@@ -1427,31 +1574,30 @@ function selectTrack(id, play = true) {
     musicEl.play().catch(() => {});
   }
 
-  renderTrackList();
+  updateCarouselUI();
   updateMusicBtn();
 }
 
 function initMusic() {
   const track = getTrack(currentTrackId);
+  carouselIndex = getTrackIndex(currentTrackId);
   musicEl.src = track.src;
   applyTrackVisuals(track);
   musicEl.volume = 0.5;
   if (musicPlaying) {
     musicEl.play().catch(() => {});
-  } else {
-    musicBtn.classList.add("muted");
   }
-  renderTrackList();
+  buildCarousel();
+  updateCarouselUI();
+  updateMusicBtn();
 }
 
 function toggleMute() {
   if (musicPlaying) {
     musicEl.pause();
-    musicBtn.classList.add("muted");
     localStorage.setItem("musicMuted", "true");
   } else {
     musicEl.play().catch(() => {});
-    musicBtn.classList.remove("muted");
     localStorage.setItem("musicMuted", "false");
   }
   musicPlaying = !musicPlaying;
@@ -1459,17 +1605,173 @@ function toggleMute() {
 }
 
 function updateMusicBtn() {
-  if (!musicPlaying) musicBtn.classList.add("muted");
-  else musicBtn.classList.remove("muted");
+  if (!musicPlaying) {
+    musicBtn.classList.add("muted");
+  } else {
+    musicBtn.classList.remove("muted");
+  }
+  const muteBtn = document.getElementById("muteBtn");
+  if (muteBtn) {
+    if (!musicPlaying) {
+      muteBtn.textContent = "Unmute";
+      muteBtn.classList.add("muted");
+    } else {
+      muteBtn.textContent = "Mute";
+      muteBtn.classList.remove("muted");
+    }
+  }
+}
+
+function buildCarousel() {
+  const trackEl = document.getElementById("carouselTrack");
+  const dotsEl = document.getElementById("carouselDots");
+  if (!trackEl || !dotsEl) return;
+
+  trackEl.innerHTML = TRACKS.map(t => {
+    if (isImageGif(t.gif)) {
+      return `<div class="carousel-slide"><img class="slide-img" src="${t.gif}" alt="${t.name}" draggable="false"></div>`;
+    }
+    const emoji = t.emoji || "🎵";
+    return `<div class="carousel-slide"><div class="slide-fallback">${emoji}</div></div>`;
+  }).join("");
+
+  dotsEl.innerHTML = TRACKS.map((_, i) =>
+    `<button type="button" class="carousel-dot" data-index="${i}" aria-label="Track ${i + 1}"></button>`
+  ).join("");
+
+  dotsEl.querySelectorAll(".carousel-dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const i = parseInt(dot.dataset.index, 10);
+      goToSlide(i, true);
+    });
+  });
+
+  carouselBuilt = true;
+  setupCarouselSwipe();
+}
+
+function updateCarouselUI() {
+  const trackEl = document.getElementById("carouselTrack");
+  const nameEl = document.getElementById("carouselTrackName");
+  const descEl = document.getElementById("carouselTrackDesc");
+  const dotsEl = document.getElementById("carouselDots");
+  if (!trackEl) return;
+
+  const i = carouselIndex;
+  trackEl.style.transform = `translateX(-${i * 100}%)`;
+
+  const t = TRACKS[i];
+  if (nameEl) nameEl.textContent = t.name;
+  if (descEl) descEl.textContent = t.desc || (t.emoji ? t.emoji : "");
+
+  if (dotsEl) {
+    dotsEl.querySelectorAll(".carousel-dot").forEach((dot, di) => {
+      dot.classList.toggle("active", di === i);
+    });
+  }
+}
+
+function goToSlide(index, select = true) {
+  const len = TRACKS.length;
+  if (len === 0) return;
+  carouselIndex = ((index % len) + len) % len;
+  updateCarouselUI();
+  if (select) {
+    selectTrack(TRACKS[carouselIndex].id, true);
+  }
+}
+
+function carouselPrev() {
+  goToSlide(carouselIndex - 1, true);
+}
+function carouselNext() {
+  goToSlide(carouselIndex + 1, true);
+}
+
+function setupCarouselSwipe() {
+  const viewport = document.getElementById("carouselViewport");
+  if (!viewport || viewport._swipeBound) return;
+  viewport._swipeBound = true;
+
+  let startX = 0;
+  let startY = 0;
+  let deltaX = 0;
+  let dragging = false;
+  const trackEl = document.getElementById("carouselTrack");
+
+  function onStart(x, y) {
+    startX = x;
+    startY = y;
+    deltaX = 0;
+    dragging = true;
+    if (trackEl) trackEl.style.transition = "none";
+  }
+  function onMove(x, y) {
+    if (!dragging) return;
+    deltaX = x - startX;
+    const dy = y - startY;
+    if (Math.abs(dy) > Math.abs(deltaX) && Math.abs(dy) > 12) {
+      dragging = false;
+      if (trackEl) {
+        trackEl.style.transition = "";
+        trackEl.style.transform = `translateX(-${carouselIndex * 100}%)`;
+      }
+      return;
+    }
+    if (trackEl) {
+      const pct = (deltaX / viewport.offsetWidth) * 100;
+      trackEl.style.transform = `translateX(calc(-${carouselIndex * 100}% + ${pct}%))`;
+    }
+  }
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    if (trackEl) trackEl.style.transition = "";
+    const threshold = viewport.offsetWidth * 0.22;
+    if (deltaX < -threshold) {
+      goToSlide(carouselIndex + 1, true);
+    } else if (deltaX > threshold) {
+      goToSlide(carouselIndex - 1, true);
+    } else {
+      updateCarouselUI();
+    }
+  }
+
+  viewport.addEventListener("touchstart", e => {
+    if (e.touches.length !== 1) return;
+    onStart(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  viewport.addEventListener("touchmove", e => {
+    if (e.touches.length !== 1) return;
+    onMove(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  viewport.addEventListener("touchend", onEnd);
+  viewport.addEventListener("touchcancel", onEnd);
+
+  viewport.addEventListener("mousedown", e => {
+    e.preventDefault();
+    onStart(e.clientX, e.clientY);
+    const onMouseMove = ev => onMove(ev.clientX, ev.clientY);
+    const onMouseUp = () => {
+      onEnd();
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+  });
 }
 
 function openMusicPopup() {
   const popup = document.getElementById("music-popup");
+  if (!carouselBuilt) buildCarousel();
+  carouselIndex = getTrackIndex(currentTrackId);
+  updateCarouselUI();
   popup.style.display = "flex";
   requestAnimationFrame(() => {
     popup.classList.add("visible");
   });
-  renderTrackList();
+  updateMusicBtn();
 }
 function closeMusicPopup() {
   const popup = document.getElementById("music-popup");
@@ -1479,30 +1781,8 @@ function closeMusicPopup() {
   }, 350);
 }
 
-function renderTrackList() {
-  const list = document.getElementById("trackList");
-  list.innerHTML = TRACKS.map(t => {
-    const hasBg = t.gif && String(t.gif).trim() !== "";
-    let fx = "";
-    if (Array.isArray(t.effect)) {
-      fx = t.effect.filter(Boolean).join("+");
-    } else {
-      fx = String(t.effect || "").trim();
-    }
-    const extras = [
-      !hasBg ? "No Background" : null,
-      fx ? "FX: " + fx : "Normal"
-    ].filter(Boolean).join(" · ");
-    return `
-    <div class="track-item ${t.id === currentTrackId ? "active" : ""}" onclick="selectTrack('${t.id}')">
-      <span class="track-emoji">${t.emoji}</span>
-      <div class="track-info">
-        <div class="track-name">${t.name}</div>
-        <div class="track-desc">${t.desc}</div>
-      </div>
-    </div>`;
-  }).join("");
-}
+document.getElementById("carouselPrev").addEventListener("click", carouselPrev);
+document.getElementById("carouselNext").addEventListener("click", carouselNext);
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js").then(() => console.log("Service Worker registered"));
