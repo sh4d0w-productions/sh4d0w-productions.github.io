@@ -426,7 +426,7 @@ function render() {
       const handle = normalizeHandle(u.handle);
       const a = document.createElement("a");
       a.className = "user-row";
-      a.href = "/users/@" + encodeURIComponent(handle);
+      a.href = "/user/@" + encodeURIComponent(handle);
 
       const img = document.createElement("img");
       img.className = "pfp";
