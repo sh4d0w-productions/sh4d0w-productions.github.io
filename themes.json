@@ -1,0 +1,47 @@
+{
+  "crimson": {
+    "name": "Crimson",
+    "gradient": "linear-gradient(90deg, #1a0000, #ff0033, #1a0000, #330000)",
+    "accent": "#ff3b5c",
+    "glassBg": "rgba(255, 40, 60, 0.08)",
+    "glassBorder": "rgba(255, 80, 100, 0.28)",
+    "button": "#ff3b5c",
+    "nameShine": "linear-gradient(90deg, #000, #ff0033, #000, #330011)"
+  },
+  "cyan": {
+    "name": "Cyan",
+    "gradient": "linear-gradient(90deg, #001a1a, #00e5ff, #001a1a, #003333)",
+    "accent": "#00e5ff",
+    "glassBg": "rgba(0, 200, 255, 0.07)",
+    "glassBorder": "rgba(0, 220, 255, 0.25)",
+    "button": "#00bcd4",
+    "nameShine": "linear-gradient(90deg, #001a1a, #00e5ff, #001a1a, #004455)"
+  },
+  "neon": {
+    "name": "Neon",
+    "gradient": "linear-gradient(90deg, #0a0015, #ff00aa, #00ffcc, #0a0015)",
+    "accent": "#ff00aa",
+    "glassBg": "rgba(255, 0, 170, 0.08)",
+    "glassBorder": "rgba(0, 255, 200, 0.3)",
+    "button": "#ff00aa",
+    "nameShine": "linear-gradient(90deg, #0a0015, #ff00aa, #00ffcc, #0a0015)"
+  },
+  "violet": {
+    "name": "Violet",
+    "gradient": "linear-gradient(90deg, #0d001a, #a855f7, #0d001a, #2e1065)",
+    "accent": "#a855f7",
+    "glassBg": "rgba(168, 85, 247, 0.08)",
+    "glassBorder": "rgba(168, 85, 247, 0.3)",
+    "button": "#9333ea",
+    "nameShine": "linear-gradient(90deg, #0d001a, #a855f7, #0d001a, #4c1d95)"
+  },
+  "emerald": {
+    "name": "Emerald",
+    "gradient": "linear-gradient(90deg, #001a0d, #10b981, #001a0d, #064e3b)",
+    "accent": "#10b981",
+    "glassBg": "rgba(16, 185, 129, 0.08)",
+    "glassBorder": "rgba(16, 185, 129, 0.28)",
+    "button": "#059669",
+    "nameShine": "linear-gradient(90deg, #001a0d, #10b981, #001a0d, #065f46)"
+  }
+}

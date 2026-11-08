@@ -1,0 +1,77 @@
+[
+  {
+    "id": "bass",
+    "name": "Double Bass FM (RADIO)",
+    "desc": "Always the best Hits of the World",
+    "emoji": "🎷",
+    "src": "https://stream.laut.fm/double-bass-fm",
+    "gif": "https://img1.picmix.com/output/pic/normal/3/5/2/4/11644253_d249e.gif",
+    "effect": "",
+    "glass": {
+      "blur": "18px",
+      "saturate": 1.3,
+      "bg": "rgba(255, 255, 255, 0.07)",
+      "border": "rgba(255, 255, 255, 0.2)"
+    }
+  },
+  {
+    "id": "featured",
+    "name": "P.I.M.P",
+    "desc": "by 50 Cent",
+    "emoji": "",
+    "src": "/mainpage/50cent.mp3",
+    "gif": "/mainpage/50cent.gif",
+    "effect": "",
+    "glass": {
+      "blur": "0px",
+      "saturate": 1.3,
+      "bg": "rgba(255, 255, 255, 0.07)",
+      "border": "rgba(255, 255, 255, 0.2)"
+    }
+  },
+  {
+    "id": "lofi",
+    "name": "Lofi Beats (RADIO)",
+    "desc": "",
+    "emoji": "🎧",
+    "src": "https://stream.laut.fm/lofi",
+    "gif": "https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif",
+    "effect": "",
+    "glass": {
+      "blur": "0px",
+      "saturate": 1,
+      "bg": "rgba(20, 20, 28, 0.72)",
+      "border": "rgba(255, 255, 255, 0.12)"
+    }
+  },
+  {
+    "id": "synth",
+    "name": "Synthwave (RADIO)",
+    "desc": "",
+    "emoji": "🌆",
+    "src": "https://stream.laut.fm/synthwave",
+    "gif": "https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif",
+    "effect": "oldtv",
+    "glass": {
+      "blur": "14px",
+      "saturate": 1.6,
+      "bg": "rgba(255, 40, 120, 0.08)",
+      "border": "rgba(255, 100, 180, 0.25)"
+    }
+  },
+  {
+    "id": "ambient",
+    "name": "Ambient Space (RADIO)",
+    "desc": "",
+    "emoji": "🌌",
+    "src": "https://stream.laut.fm/ambient",
+    "gif": "Galaxy",
+    "effect": ["stars", "flicker"],
+    "glass": {
+      "blur": "28px",
+      "saturate": 1.5,
+      "bg": "rgba(255, 255, 255, 0.05)",
+      "border": "rgba(180, 160, 255, 0.28)"
+    }
+  }
+]

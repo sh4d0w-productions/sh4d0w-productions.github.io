@@ -1,0 +1,59 @@
+[
+  {
+    "id": "eksi",
+    "name": "E K S I",
+    "handle": "@unkn0wn_sh4d0w",
+    "bio": "Im the Owner of Sh4d0w Productions!\n\nMale • 20yrs\nDM me on Snapchat or Discord for inquiries",
+    "pfp": "/sh4d0wimg.png?size=1024",
+    "theme": "crimson",
+    "badges": ["html", "css", "js", "python", "go", "lua"],
+    "bots": [
+      {
+        "name": "omg.bot",
+        "desc": "Formerly known as cr4zy.bot\nActive — Multipurpose Discord Bot with over 1K Commands"
+      },
+      {
+        "name": "Utility-Bot#8077",
+        "desc": "Discontinued since February 2026\nTransferred to omg.bot"
+      }
+    ],
+    "links": [
+      {
+        "label": "Join My Discord Server",
+        "url": "https://discord.gg/HQpNG7Cy4Q",
+        "color": "#5865F2"
+      }
+    ],
+    "defaultTrack": "bass"
+  },
+  {
+    "id": "guest",
+    "name": "Guest User",
+    "handle": "@guest",
+    "bio": "Default guest profile.\nAdd your own users in users.json",
+    "pfp": "/splash.png?size=1024",
+    "theme": "cyan",
+    "badges": ["html", "css", "js"],
+    "bots": [],
+    "links": [],
+    "defaultTrack": "lofi"
+  },
+  {
+    "id": "neon",
+    "name": "Neon",
+    "handle": "@neon.void",
+    "bio": "Synthwave & night drives.\nDemo profile for theme testing.",
+    "pfp": "/splash.png?size=1024",
+    "theme": "neon",
+    "badges": ["js", "python"],
+    "bots": [],
+    "links": [
+      {
+        "label": "Discord",
+        "url": "https://discord.gg/HQpNG7Cy4Q",
+        "color": "#5865F2"
+      }
+    ],
+    "defaultTrack": "synth"
+  }
+]
