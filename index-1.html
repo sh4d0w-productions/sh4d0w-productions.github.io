@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「criminal ꨄ︎」 Users</title>
+<meta name="color-scheme" content="light dark">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f4f5f7;
+  --bg-elevated: #ffffff;
+  --bg-soft: #eceef2;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, 0.12);
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  --row-hover: #f8fafc;
+  --letter-active: #111827;
+  --input-bg: #ffffff;
+  --scrollbar: #cbd5e1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f14;
+    --bg-elevated: #121821;
+    --bg-soft: #1a2230;
+    --text: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border: #243041;
+    --accent: #60a5fa;
+    --accent-soft: rgba(96, 165, 250, 0.14);
+    --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    --row-hover: #182131;
+    --letter-active: #f8fafc;
+    --input-bg: #101722;
+    --scrollbar: #334155;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  min-height: 100dvh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  width: min(720px, 100%);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 16px 28px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-bottom: 12px;
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 13px 14px 13px 42px;
+  font-size: 0.95rem;
+  outline: none;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-box input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 28px;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+.list-wrap {
+  min-width: 0;
+}
+
+.section {
+  margin-top: 10px;
+}
+
+.section-letter {
+  position: sticky;
+  top: 108px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  margin: 8px 0 8px 2px;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.user-row:hover {
+  background: var(--row-hover);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  transform: translateY(-1px);
+}
+
+.user-row:active {
+  transform: translateY(0);
+}
+
+.pfp {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 0.98rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.handle {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tag {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.alphabet {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  user-select: none;
+  max-height: calc(100dvh - 140px);
+  overflow: hidden;
+}
+
+.alphabet button {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 2px 0;
+  width: 22px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.alphabet button:hover,
+.alphabet button.active {
+  color: var(--letter-active);
+  background: var(--accent-soft);
+}
+
+.empty {
+  margin-top: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.footer {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 520px) {
+  .app { padding: 14px 12px 22px; }
+  .title { font-size: 1.2rem; }
+  .pfp { width: 44px; height: 44px; }
+  .section-letter { top: 100px; }
+  .alphabet { top: 112px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1 class="title">Users</h1>
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="M20 20l-3.5-3.5"></path>
+      </svg>
+      <input id="search" type="search" placeholder="Search name or @handle" autocomplete="off" spellcheck="false">
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="list-wrap" id="list"></div>
+    <div class="alphabet" id="alphabet"></div>
+  </div>
+
+  <div class="footer">© 2026 Sh4d0w</div>
+</div>
+
+<audio id="music" autoplay loop preload="auto" src="https://stream.laut.fm/classical"></audio>
+
+<script>
+const USERS = [
+  {
+    name: "E K S I",
+    handle: "unkn0wn_sh4d0w",
+    pfp: "/sh4d0wimg.png?size=1024",
+    tag: "Owner",
+    tagColor: "#ef4444"
+  },
+  {
+    name: "Neon",
+    handle: "neon.void",
+    pfp: "/splash.png?size=1024",
+    tag: "VIP",
+    tagColor: "#a855f7"
+  },
+  {
+    name: "Guest User",
+    handle: "guest",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Aria",
+    handle: "aria.wave",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Byte",
+    handle: "byte.dev",
+    pfp: "/splash.png?size=1024",
+    tag: "VIP",
+    tagColor: "#22c55e"
+  },
+  {
+    name: "Cipher",
+    handle: "cipher",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Delta",
+    handle: "delta.x",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Echo",
+    handle: "echo",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Frost",
+    handle: "frost",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Orbit",
+    handle: "orbit",
+    pfp: "/splash.png?size=1024",
+    tag: "VIP",
+    tagColor: "#0ea5e9"
+  },
+  {
+    name: "Pixel",
+    handle: "pixel",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  },
+  {
+    name: "Zephyr",
+    handle: "zephyr",
+    pfp: "/splash.png?size=1024",
+    tag: "",
+    tagColor: ""
+  }
+];
+
+const listEl = document.getElementById("list");
+const alphabetEl = document.getElementById("alphabet");
+const searchEl = document.getElementById("search");
+const musicEl = document.getElementById("music");
+
+musicEl.volume = 0.35;
+musicEl.play().catch(() => {});
+
+function normalizeHandle(handle) {
+  return String(handle || "").replace(/^@+/, "").trim();
+}
+
+function letterOf(name) {
+  const ch = String(name || "").trim().charAt(0).toUpperCase();
+  return /[A-Z]/.test(ch) ? ch : "#";
+}
+
+function getFilteredUsers(query) {
+  const q = String(query || "").trim().toLowerCase();
+  let list = USERS.slice();
+  if (q) {
+    list = list.filter(u => {
+      const name = String(u.name || "").toLowerCase();
+      const handle = normalizeHandle(u.handle).toLowerCase();
+      const tag = String(u.tag || "").toLowerCase();
+      return name.includes(q) || handle.includes(q) || ("@" + handle).includes(q) || tag.includes(q);
+    });
+  }
+  list.sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), undefined, { sensitivity: "base" }));
+  return list;
+}
+
+function groupByLetter(users) {
+  const groups = {};
+  users.forEach(u => {
+    const L = letterOf(u.name);
+    if (!groups[L]) groups[L] = [];
+    groups[L].push(u);
+  });
+  return groups;
+}
+
+function buildAlphabet(activeLetters) {
+  alphabetEl.innerHTML = "";
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  letters.forEach(L => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = L;
+    btn.dataset.letter = L;
+    if (activeLetters.has(L)) {
+      btn.classList.add("active");
+      btn.addEventListener("click", () => {
+        const target = document.getElementById("letter-" + L);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    } else {
+      btn.style.opacity = "0.35";
+      btn.style.pointerEvents = "none";
+    }
+    alphabetEl.appendChild(btn);
+  });
+}
+
+function render() {
+  const users = getFilteredUsers(searchEl.value);
+  const groups = groupByLetter(users);
+  const letters = Object.keys(groups).sort((a, b) => {
+    if (a === "#") return 1;
+    if (b === "#") return -1;
+    return a.localeCompare(b);
+  });
+
+  listEl.innerHTML = "";
+
+  if (!users.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "No users found";
+    listEl.appendChild(empty);
+    buildAlphabet(new Set());
+    return;
+  }
+
+  const active = new Set(letters);
+  buildAlphabet(active);
+
+  letters.forEach(L => {
+    const section = document.createElement("section");
+    section.className = "section";
+    section.id = "letter-" + L;
+
+    const head = document.createElement("div");
+    head.className = "section-letter";
+    head.textContent = L;
+    section.appendChild(head);
+
+    groups[L].forEach(u => {
+      const handle = normalizeHandle(u.handle);
+      const a = document.createElement("a");
+      a.className = "user-row";
+      a.href = "/users/@" + encodeURIComponent(handle);
+
+      const img = document.createElement("img");
+      img.className = "pfp";
+      img.src = u.pfp || "/splash.png?size=1024";
+      img.alt = u.name || handle;
+      img.onerror = () => { img.src = "/splash.png?size=1024"; };
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `<div class="name"></div><div class="handle"></div>`;
+      meta.querySelector(".name").textContent = u.name || "Unknown";
+      meta.querySelector(".handle").textContent = "@" + handle;
+
+      a.appendChild(img);
+      a.appendChild(meta);
+
+      if (u.tag) {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = u.tag;
+        tag.style.color = u.tagColor || "var(--accent)";
+        a.appendChild(tag);
+      }
+
+      section.appendChild(a);
+    });
+
+    listEl.appendChild(section);
+  });
+}
+
+searchEl.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>
