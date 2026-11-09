@@ -51,7 +51,6 @@
       overflow-x: hidden;
     }
 
-    /* ========== SPLASH ========== */
     #splash {
       position: fixed;
       inset: 0;
@@ -97,7 +96,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ========== MAIN ========== */
     #app {
       opacity: 0;
       transition: opacity 0.5s ease 0.2s;
@@ -129,7 +127,6 @@
       margin-top: 2px;
     }
 
-    /* ========== SECTIONS ========== */
     .section-label {
       position: sticky;
       top: 72px;
@@ -148,7 +145,6 @@
       color: #f1c40f;
     }
 
-    /* ========== USER CARD ========== */
     .user-list {
       padding: 0 14px;
     }
@@ -179,7 +175,6 @@
       border-color: rgba(255,255,255,0.1);
     }
 
-    /* Nameplate background layer */
     .nameplate {
       position: absolute;
       inset: 0;
@@ -195,7 +190,6 @@
       z-index: 1;
     }
 
-    /* Effects */
     .effect-gold {
       background: linear-gradient(135deg, #2a2110 0%, #1a160c 100%);
       border-color: rgba(241, 196, 15, 0.35);
@@ -240,7 +234,6 @@
       100% { opacity: 1; }
     }
 
-    /* Avatar */
     .avatar {
       width: 48px;
       height: 48px;
@@ -278,7 +271,6 @@
       margin-top: 2px;
     }
 
-    /* Tags / Badges */
     .tags {
       display: flex;
       gap: 5px;
@@ -313,7 +305,6 @@
       border: 1px solid rgba(241, 196, 15, 0.3);
     }
 
-    /* Empty state */
     .empty {
       text-align: center;
       padding: 60px 20px;
@@ -321,7 +312,6 @@
       font-size: 15px;
     }
 
-    /* Letter jump (optional quick nav) */
     .letter-nav {
       position: fixed;
       right: 6px;
@@ -353,13 +343,11 @@
 </head>
 <body>
 
-  <!-- SPLASH SCREEN -->
   <div id="splash">
-    <img src="splashlogo.png" alt="Logo" onerror="this.style.display='none'" />
+    <img src="splash.png" alt="Logo" onerror="this.style.display='none'" />
     <div class="copy">© Sh4d0w Productions</div>
   </div>
 
-  <!-- MAIN APP -->
   <div id="app">
     <header>
       <h1>Directory</h1>
@@ -372,107 +360,23 @@
   </div>
 
   <script>
-    /* ============================================================
-       USER DATA  –  Edit this array to manage everything
-       ------------------------------------------------------------
+    /* 
        username   : Display name
        handle     : @handle (no @ symbol)
        avatar     : Path or URL to profile picture
        tags       : ["Owner", "VIP"]   ← only these two can be set here
        pinned     : true / false       ← setting true auto-adds "Pinned" tag
        nameplate  : Path/URL to nameplate image (optional)
-       effect     : "gold" | "silver" | "bronze" | "sparkle" | null
-       ============================================================ */
+       effect     : "gold" | "silver" | "bronze" | "sparkle" | null */
     const users = [
       {
-        username: "Sh4d0w",
-        handle: "sh4d0w",
+        username: "<3 Luna",
+        handle: "cutieluna",
         avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Sh4d0w",
-        tags: ["Owner"],
-        pinned: true,
-        nameplate: "",
-        effect: "gold"
-      },
-      {
-        username: "Aria Night",
-        handle: "aria",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Aria",
         tags: ["VIP"],
         pinned: true,
         nameplate: "",
         effect: "sparkle"
-      },
-      {
-        username: "Kai Storm",
-        handle: "kai",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Kai",
-        tags: [],
-        pinned: false,
-        nameplate: "",
-        effect: "silver"
-      },
-      {
-        username: "Luna Vale",
-        handle: "lunav",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Luna",
-        tags: ["VIP"],
-        pinned: false,
-        nameplate: "",
-        effect: "bronze"
-      },
-      {
-        username: "Nova Blade",
-        handle: "nova",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Nova",
-        tags: [],
-        pinned: false,
-        nameplate: "",
-        effect: null
-      },
-      {
-        username: "Rex Orion",
-        handle: "rex",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Rex",
-        tags: [],
-        pinned: false,
-        nameplate: "",
-        effect: null
-      },
-      {
-        username: "Zara Quinn",
-        handle: "zara",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Zara",
-        tags: ["VIP"],
-        pinned: false,
-        nameplate: "",
-        effect: "gold"
-      },
-      {
-        username: "Echo Frost",
-        handle: "echo",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Echo",
-        tags: [],
-        pinned: false,
-        nameplate: "",
-        effect: null
-      },
-      {
-        username: "Mira Sol",
-        handle: "mira",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Mira",
-        tags: [],
-        pinned: false,
-        nameplate: "",
-        effect: "sparkle"
-      },
-      {
-        username: "Theo Ash",
-        handle: "theo",
-        avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=Theo",
-        tags: [],
-        pinned: false,
-        nameplate: "",
-        effect: null
       }
     ];
 
