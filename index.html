@@ -380,11 +380,6 @@
       }
     ];
 
-    /* ============================================================
-       APP LOGIC
-       ============================================================ */
-
-    // Splash → Main
     window.addEventListener("load", () => {
       setTimeout(() => {
         document.getElementById("splash").classList.add("hide");
@@ -392,19 +387,15 @@
       }, 2200);
     });
 
-    // Build the list
     function render() {
       const content = document.getElementById("content");
       content.innerHTML = "";
 
-      // Separate pinned
       const pinned = users.filter(u => u.pinned);
       const rest   = users.filter(u => !u.pinned);
 
-      // Sort A-Z by username
       rest.sort((a, b) => a.username.localeCompare(b.username, undefined, { sensitivity: "base" }));
 
-      // Group by first letter
       const groups = {};
       rest.forEach(u => {
         const letter = (u.username[0] || "#").toUpperCase();
@@ -412,7 +403,6 @@
         groups[letter].push(u);
       });
 
-      // Render pinned section
       if (pinned.length) {
         const label = document.createElement("div");
         label.className = "section-label pinned";
@@ -425,7 +415,6 @@
         content.appendChild(list);
       }
 
-      // Render A-Z sections
       const letters = Object.keys(groups).sort();
       letters.forEach(letter => {
         const label = document.createElement("div");
@@ -440,7 +429,6 @@
         content.appendChild(list);
       });
 
-      // Letter quick-nav
       buildLetterNav(letters);
 
       if (!pinned.length && !rest.length) {
@@ -453,12 +441,9 @@
       a.className = "user-card";
       a.href = `/user/@${user.handle}`;
 
-      // Effect class
       if (user.effect) {
         a.classList.add(`effect-${user.effect}`);
       }
-
-      // Nameplate layer
       if (user.nameplate) {
         const np = document.createElement("div");
         np.className = "nameplate";
@@ -466,7 +451,6 @@
         a.appendChild(np);
       }
 
-      // Avatar
       const img = document.createElement("img");
       img.className = "avatar";
       img.src = user.avatar || "https://api.dicebear.com/9.x/avataaars/svg?seed=default";
@@ -474,7 +458,6 @@
       img.onerror = () => { img.src = "https://api.dicebear.com/9.x/avataaars/svg?seed=fallback"; };
       a.appendChild(img);
 
-      // Info
       const info = document.createElement("div");
       info.className = "info";
 
@@ -486,7 +469,6 @@
       name.textContent = user.username;
       nameRow.appendChild(name);
 
-      // Tags (Pinned is auto-added if pinned === true)
       const tags = [...(user.tags || [])];
       if (user.pinned && !tags.includes("Pinned")) {
         tags.unshift("Pinned");
@@ -528,8 +510,6 @@
         nav.appendChild(span);
       });
     }
-
-    // Start
     render();
   </script>
 </body>
